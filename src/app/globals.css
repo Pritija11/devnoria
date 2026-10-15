@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f6f5fb;
+  --surface: #ffffff;
+  --surface-tint: #f1effa;
+  --border: #e7e5f0;
+  --border-strong: #d6d2e8;
+
+  --ink: #15131f;
+  --fg: #15131f;
+  --fg-muted: #5c5a70;
+  --fg-faint: #9492a8;
+
+  --primary: #6d5aef;
+  --primary-dark: #5a46e0;
+  --primary-soft: #eeebfd;
+  --on-primary: #ffffff;
+  --on-dark: #f3f2fa;
+
+  --accent-amber: #e08a1a;
+  --accent-amber-soft: #fdf1de;
+
+  --grade-a: #15803d;
+  --grade-b: #65902c;
+  --grade-c: #b4740e;
+  --grade-d: #c2540c;
+  --grade-f: #c0271f;
+
+  --success: #15803d;
+  --danger: #c0271f;
+  --warning: #b4740e;
+
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-manrope);
+  --font-mono: var(--font-geist-mono);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-manrope);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Faint hex/node texture, used behind hero sections */
+.node-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--border-strong) 80%, transparent) 1.4px,
+    transparent 1.4px
+  );
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 80%);
+}
+
+/* Soft violet/amber glow, used behind hero content */
+.hero-glow {
+  position: absolute;
+  inset: -10% -10% auto -10%;
+  height: 620px;
+  background:
+    radial-gradient(
+      40% 55% at 78% 15%,
+      color-mix(in srgb, var(--primary) 16%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      30% 42% at 10% 55%,
+      color-mix(in srgb, var(--accent-amber) 12%, transparent),
+      transparent 72%
+    );
+  pointer-events: none;
+}
+
+/* Catalog tag, left-accent label used in place of a generic eyebrow */
+.catalog-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 7px 14px 7px 11px;
+}
+.catalog-tag::before {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--primary);
+}
+
+/* Status pills used inside mock UI */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.pill-success {
+  background: color-mix(in srgb, var(--success) 14%, transparent);
+  color: var(--success);
+}
+.pill-warning {
+  background: color-mix(in srgb, var(--warning) 16%, transparent);
+  color: var(--warning);
+}
+.pill-danger {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--danger);
+}
+.pill-neutral {
+  background: var(--surface-tint);
+  color: var(--fg-muted);
+}
+.pill-primary {
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+  color: var(--primary-dark);
+}
+
+/* Grade badges, used in ServiceScorecard */
+.grade-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 28px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  flex: none;
+}
+.grade-a {
+  background: color-mix(in srgb, var(--grade-a) 14%, transparent);
+  color: var(--grade-a);
+}
+.grade-b {
+  background: color-mix(in srgb, var(--grade-b) 14%, transparent);
+  color: var(--grade-b);
+}
+.grade-c {
+  background: color-mix(in srgb, var(--grade-c) 14%, transparent);
+  color: var(--grade-c);
+}
+.grade-d {
+  background: color-mix(in srgb, var(--grade-d) 14%, transparent);
+  color: var(--grade-d);
+}
+.grade-f {
+  background: color-mix(in srgb, var(--grade-f) 16%, transparent);
+  color: var(--grade-f);
+}
